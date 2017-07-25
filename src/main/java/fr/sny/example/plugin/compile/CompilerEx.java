@@ -21,7 +21,7 @@ import fr.esgi.projet.softwareneedsyou.api.compiler.ResultTest;
 import fr.esgi.projet.softwareneedsyou.api.compiler.TestState;
 
 /**
- * @author Blixel
+ * @author Tristan
  *
  */
 public class CompilerEx implements PluginCompiler {
@@ -46,10 +46,10 @@ public class CompilerEx implements PluginCompiler {
 	 * @see fr.esgi.projet.softwareneedsyou.api.compiler.PluginCompiler#compileAndTest()
 	 */
 	@Override
-	public Optional<Object> compileAndTest(final String code, final InputStream testsDef, final ConsoleOutput console) throws CompilerException {
+	public ResultCompiler compileAndTest(final String code, final InputStream testsDef, final ConsoleOutput console) throws CompilerException {
 		//TODO: compile the code
-		ResultCompilerImpl result = new ResultCompilerImpl(true);
 		if(true) {
+			ResultCompiler result = new ResultCompiler(true);
 			//TODO: run tests
 			List<Integer> tests = Arrays.asList(1, 2, 3, 4);
 			for(Integer i : tests) {
@@ -64,8 +64,9 @@ public class CompilerEx implements PluginCompiler {
 					result.addResultTest(i, res);
 				}
 			}
-		}
-		return Optional.of(result);
+			return result;
+		} else
+			return new ResultCompiler(false);
 	}
 
 	private final static Set<String> languages = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("MyLanguage", "OtherLanguage")));
@@ -77,27 +78,4 @@ public class CompilerEx implements PluginCompiler {
 		return languages;
 	}
 
-
-	private final class ResultCompilerImpl implements ResultCompiler {
-		private boolean success;
-		
-		public ResultCompilerImpl(final boolean success) {
-			this.success = success;
-		}
-		@Override
-		public boolean isCompileSuccess() {
-			return true;
-		}
-		
-		private HashMap<Integer, ResultTest> results = new HashMap<>();
-		@Override
-		public Map<Integer, ResultTest> getTestsResults() {
-			return Collections.unmodifiableMap(this.results);
-		}
-		
-		void addResultTest(final int id, final ResultTest rt) {
-			this.results.put(id, rt);
-		}
-
-	}
 }

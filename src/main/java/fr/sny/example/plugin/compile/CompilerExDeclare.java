@@ -11,7 +11,7 @@ import fr.esgi.projet.softwareneedsyou.api.compiler.PluginCompilerDeclare;
 import fr.esgi.projet.softwareneedsyou.api.spi.InitialisationException;
 
 /**
- * @author Blixel
+ * @author Tristan
  *
  */
 public class CompilerExDeclare implements PluginCompilerDeclare {
